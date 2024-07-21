@@ -6,6 +6,7 @@ import {createUser, login} from "./controllers/users";
 import auth from "./middlewares/auth";
 import {NOT_FOUND_ERROR_CODE, SERVER_ERROR_MESSAGE} from "./consts";
 import {createUserValidation} from "./validations/validations";
+import ServerError from "./errors/ServerError";
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -17,7 +18,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: ServerError, req: Request, res: Response, next: NextFunction) => {
   const { statusCode = 500, message } = err;
 
   res
