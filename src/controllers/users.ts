@@ -9,7 +9,6 @@ import {
   SERVER_ERROR_CODE, SERVER_ERROR_MESSAGE
 } from "../consts";
 import NotFoundError from "../errors/NotFoundError";
-import ServerError from "../errors/ServerError";
 import BadRequestError from "../errors/BadRequestError";
 import UnauthorizedError from "../errors/UnauthorizedError";
 
@@ -123,6 +122,7 @@ export const getCurrentUser = (
   req: Request,
   res: Response,
   next: NextFunction
+  // @ts-ignore
 ) => User.findById(req.user?._id)
   .then((user) => {
     if (!user) {

@@ -43,6 +43,7 @@ export const getCardById = (req: Request, res: Response, next: NextFunction) => 
 export const createCard = (req: Request, res: Response, next: NextFunction) => Card.create({
   name: req.query.name,
   link: req.query.link,
+  // @ts-ignore
   owner: req.user.id,
 })
   .then((card) => res.status(CREATE_STATUS_CODE).send(card))
@@ -56,6 +57,7 @@ export const createCard = (req: Request, res: Response, next: NextFunction) => C
 
 export const likeCard = (req: Request, res: Response, next: NextFunction) => Card.findByIdAndUpdate(
   req.params.cardId,
+  // @ts-ignore
   { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
   { new: true },
 )
@@ -77,6 +79,7 @@ export const likeCard = (req: Request, res: Response, next: NextFunction) => Car
 
 export const dislikeCard = (req: Request, res: Response, next: NextFunction) => Card.findByIdAndUpdate(
   req.params.cardId,
+  // @ts-ignore
   { $pull: { likes: req.user._id } }, // убрать _id из массива
   { new: true },
 )

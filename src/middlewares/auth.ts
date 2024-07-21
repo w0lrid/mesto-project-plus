@@ -12,6 +12,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     payload = jwt.verify(token, "secret");
+    // @ts-ignore
     req.user = payload;
     return next();
   } catch (error) {
