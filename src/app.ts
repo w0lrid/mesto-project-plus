@@ -11,6 +11,12 @@ const { PORT = 3000 } = process.env;
 const app = express();
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   const { statusCode = 500, message } = err;
 
